@@ -42,7 +42,7 @@ namespace Bot_Application1
                     }
                 else if (activity.Text.StartsWith("!d"))
                 {
-                    int sides = Int32.Parse(activity.Text.Substring(2, length - 1));
+                    int sides = Int32.Parse(activity.Text.Substring(2, length - 2));
                     Random rnd = new Random();
                     reply = activity.CreateReply(rnd.Next(sides + 1).ToString());
                 }
