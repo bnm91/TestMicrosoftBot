@@ -40,6 +40,12 @@ namespace Bot_Application1
                     reply.Attachments = new List<Attachment>();
                     reply.Attachments.Add(attachment);
                     }
+                else if (activity.Text.StartsWith("!d"))
+                {
+                    int sides = Int32.Parse(activity.Text.Substring(2, length - 1));
+                    Random rnd = new Random();
+                    reply = activity.CreateReply(rnd.Next(sides + 1).ToString());
+                }
                 else
                 {
                     reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
