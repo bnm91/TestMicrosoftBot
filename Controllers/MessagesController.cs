@@ -30,17 +30,17 @@ namespace Bot_Application1
                 // return our reply to the user
                 if (activity.Text == "!notarapper.gif")
                 {
-                    reply = activity.CreateReply();
-                    Attachment attachment = new Attachment()
-                        {
-                            ContentUrl = "http://i.imgur.com/xgz9nkR.gif",
-                            ContentType = "image/gif",
-                            Name = "notarapper.gif"
-                        };
-                    reply.Attachments = new List<Attachment>();
-                    reply.Attachments.Add(attachment);
+                    reply = activity.CreateReply("http://i.imgur.com/xgz9nkR.gif");
+                    //Attachment attachment = new Attachment()
+                    //    {
+                    //        ContentUrl = "http://i.imgur.com/xgz9nkR.gif",
+                    //        ContentType = "image/gif",
+                    //        Name = "notarapper.gif"
+                    //    };
+                    //reply.Attachments = new List<Attachment>();
+                    //reply.Attachments.Add(attachment);
                     }
-                else if (activity.Text.StartsWith("!d"))
+                else if (activity.Text.StartsWith("!d"))// && Int32.TryParse(activity.Text.Substring(2, length -2))
                 {
                     int sides = Int32.Parse(activity.Text.Substring(2, length - 2));
                     Random rnd = new Random();
