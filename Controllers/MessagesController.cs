@@ -22,7 +22,7 @@ namespace Bot_Application1
         /// Receive a message from a user and reply to it
         /// </summary>
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
-        {
+       {
             if (activity.Type == ActivityTypes.Message)
             {
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
@@ -42,14 +42,14 @@ namespace Bot_Application1
                     //    };
                     //reply.Attachments = new List<Attachment>();
                     //reply.Attachments.Add(attachment);
-                    }
-                else if (activity.Text.StartsWith("!d"))// && Int32.TryParse(activity.Text.Substring(2, length -2))
+                }
+                else if (activity.Text.Contains("!d"))// && Int32.TryParse(activity.Text.Substring(2, length -2))
                 {
                     int sides = Int32.Parse(activity.Text.Substring(2, length - 2));
                     Random rnd = new Random();
                     reply = activity.CreateReply(rnd.Next(sides + 1).ToString());
                 }
-                else if (Regex.IsMatch(activity.Text, @"^\[.*?\]$"))
+                else if (Regex.IsMatch(activity.Text, @".*?\[.*?\].*?"))
                 {
                     int num;
                     string input = Regex.Match(activity.Text, @"\[(.*?)\]").Groups[1].Value;
@@ -71,8 +71,12 @@ namespace Bot_Application1
                 }
                 else
                 {
-                    reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
+                    return Request.CreateResponse(HttpStatusCode.OK);
                 }
+                //else
+                //{
+                //    reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
+                //}
                 await connector.Conversations.ReplyToActivityAsync(reply);
             }
             else
