@@ -31,7 +31,7 @@ namespace Bot_Application1
 
                 Activity reply = null;
                 // return our reply to the user
-                if (activity.Text == "!notarapper.gif")
+                if (activity.Text.Contains("!notarapper.gif"))
                 {
                     reply = activity.CreateReply("http://i.imgur.com/xgz9nkR.gif");
                     //Attachment attachment = new Attachment()
@@ -45,7 +45,11 @@ namespace Bot_Application1
                 }
                 else if (activity.Text.Contains("!d"))// && Int32.TryParse(activity.Text.Substring(2, length -2))
                 {
-                    int sides = Int32.Parse(activity.Text.Substring(2, length - 2));
+                    //int sides = Int32.Parse(activity.Text.Substring(2, length - 2));
+                    int index = activity.Text.IndexOf("!d");
+                    string dice = activity.Text.Substring(activity.Text.IndexOf("!d"));
+                    string[] tokens = dice.Split(' ');
+                    int sides = Int32.Parse(tokens[0].Substring(2, tokens[0].Length - 2));
                     Random rnd = new Random();
                     reply = activity.CreateReply(rnd.Next(sides + 1).ToString());
                 }
