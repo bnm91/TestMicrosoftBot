@@ -125,6 +125,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TeamServicesAPI\WorkItemsAPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

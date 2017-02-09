@@ -8,6 +8,9 @@ using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Bot_Application1.TeamServicesAPI;
+using Newtonsoft.Json.Linq;
 
 namespace Bot_Application1
 {
@@ -45,6 +48,26 @@ namespace Bot_Application1
                     int sides = Int32.Parse(activity.Text.Substring(2, length - 2));
                     Random rnd = new Random();
                     reply = activity.CreateReply(rnd.Next(sides + 1).ToString());
+                }
+                else if (Regex.IsMatch(activity.Text, @"^\[.*?\]$"))
+                {
+                    int num;
+                    string input = Regex.Match(activity.Text, @"\[(.*?)\]").Groups[1].Value;
+                    bool result = Int32.TryParse(input, out num);
+                    if (result)
+                    {
+                        WorkItemsAPI api = new WorkItemsAPI();
+                        string r = api.GetWorkItem(num.ToString());
+                        JObject json = JObject.Parse(r);
+                        JToken f = json["fields"];
+                        JToken systemAreaPath = f["System.AreaPath"];
+                        JToken systemTitle = f["System.Title"];
+                        reply = activity.CreateReply(systemAreaPath.ToString() + ": " + systemTitle.ToString());
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
                 }
                 else
                 {
