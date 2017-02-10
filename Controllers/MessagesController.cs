@@ -31,7 +31,11 @@ namespace Bot_Application1
 
                 Activity reply = null;
                 // return our reply to the user
-                if (activity.Text.Contains("!notarapper.gif"))
+                if (activity.Text.Contains("help"))
+                {
+                    reply = activity.CreateReply("Hi! I'm a bot help with in this chat. Give me commands by tagging me and in a message and entering the command like \'@testbot help\'  \n\n !notarapper.gif-- sends the greatest.gif of all time  \n\n !d{#] -- ex !d10. Rolls a dice with the specified number of sides  \n\n [{#}] -- ex [9999]. Returns a description of the specified Team Services work item  \n\n\n\n Thanks!")
+                }
+                else if (activity.Text.Contains("!notarapper.gif"))
                 {
                     reply = activity.CreateReply("http://i.imgur.com/xgz9nkR.gif");
                     //Attachment attachment = new Attachment()
